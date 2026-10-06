@@ -1,0 +1,19 @@
+{
+  "prompt": "What is the sum of all prime numbers between 1 and 50?",
+  "results": [
+    {
+      "model": "claude-sonnet",
+      "rawTrace": "I need to find all prime numbers between 1 and 50, then sum them up.\n\nLet me recall what a prime number is: a number greater than 1 that has no positive divisors other than 1 and itself.\n\nLet me go through each number:\n2 - prime (only divisible by 1 and 2)\n3 - prime\n4 - not prime (2×2)\n5 - prime\n6 - not prime (2×3)\n7 - prime\n8 - not prime (2×4)\n9 - not prime (3×3)\n10 - not prime (2×5)\n11 - prime\n12 - not prime\n13 - prime\n14 - not prime (2×7)\n15 - not prime (3×5)\n16 - not prime\n17 - prime\n18 - not prime\n19 - prime\n20 - not prime\n21 - not prime (3×7)\n22 - not prime\n23 - prime\n24 - not prime\n25 - not prime (5×5)\n26 - not prime\n27 - not prime (3×9)\n28 - not prime\n29 - prime\n30 - not prime\n31 - prime\n32 - not prime\n33 - not prime (3×11)\n34 - not prime\n35 - not prime (5×7)\n36 - not prime\n37 - prime\n38 - not prime\n39 - not prime (3×13)\n40 - not prime\n41 - prime\n42 - not prime\n43 - prime\n44 - not prime\n45 - not prime\n46 - not prime\n47 - prime\n48 - not prime\n49 - not prime (7×7)\n50 - not prime\n\nSo the primes between 1 and 50 are: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47\n\nThat's 15 primes. Let me sum them:\n2 + 3 = 5\n5 + 5 = 10\n10 + 7 = 17\n17 + 11 = 28\n28 + 13 = 41\n41 + 17 = 58\n58 + 19 = 77\n77 + 23 = 100\n100 + 29 = 129\n129 + 31 = 160\n160 + 37 = 197\n197 + 41 = 238\n238 + 43 = 281\n281 + 47 = 328\n\nLet me verify by grouping: (2+48 is not valid since 48 isn't prime)\nActually let me just re-add: 2+3+5+7+11+13+17+19+23+29+31+37+41+43+47\n= (2+3+5) + (7+11+13) + (17+19+23) + (29+31) + (37+41+43+47)\n= 10 + 31 + 59 + 60 + 168\n= 328\n\nWait, let me recheck that last group: 37+41 = 78, 78+43 = 121, 121+47 = 168. Yes.\n10 + 31 = 41, 41 + 59 = 100, 100 + 60 = 160, 160 + 168 = 328.\n\nThe answer is 328.",
+      "answer": "The sum of all prime numbers between 1 and 50 is **328**.\n\nThe prime numbers are: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47 (15 primes total).",
+      "totalTokens": 1842,
+      "totalTimeMs": 8500
+    },
+    {
+      "model": "deepseek-r1",
+      "rawTrace": "The user wants the sum of primes between 1 and 50.\n\nFirst, let me list all primes up to 50.\n\nPrimes: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47\n\nNow I need to add them all up.\n\nLet me try grouping them to make addition easier:\nGroup 1: 2 + 3 + 5 = 10\nGroup 2: 7 + 13 = 20\nGroup 3: 11 + 19 = 30\nGroup 4: 17 + 23 = 40\nGroup 5: 29 + 31 = 60\nGroup 6: 37 + 43 = 80\nGroup 7: 41 + 47 = 88\n\nNow sum the groups: 10 + 20 = 30, 30 + 30 = 60, 60 + 40 = 100, 100 + 60 = 160, 160 + 80 = 240, 240 + 88 = 328\n\nSo the answer is 328.",
+      "answer": "The sum of all prime numbers between 1 and 50 is **328**.\n\nPrimes: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47\nSum: 2+3+5+7+11+13+17+19+23+29+31+37+41+43+47 = 328",
+      "totalTokens": 985,
+      "totalTimeMs": 4200
+    }
+  ]
+}
