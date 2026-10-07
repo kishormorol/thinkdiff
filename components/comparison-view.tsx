@@ -5,11 +5,22 @@ import { motion } from "framer-motion";
 import { useStore } from "@/lib/store";
 import { TracePanel } from "./trace-panel";
 import { AlignedComparison } from "./aligned-comparison";
+import { ComparisonSummary } from "./comparison-summary";
+import { SyncedReplay } from "./synced-replay";
+import { CrossMetrics } from "./cross-metrics";
+import { AnswerDiff } from "./answer-diff";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-type ViewMode = "panels" | "aligned";
+type ViewMode = "panels" | "aligned" | "synced" | "metrics" | "answers";
+
+const VIEW_TABS: { id: ViewMode; label: string; icon: string; minTraces: number }[] = [
+  { id: "panels", label: "Side by Side", icon: "⊞", minTraces: 1 },
+  { id: "aligned", label: "Aligned", icon: "≡", minTraces: 2 },
+  { id: "synced", label: "Synced Replay", icon: "▶▶", minTraces: 2 },
+  { id: "metrics", label: "Compare Stats", icon: "◎", minTraces: 2 },
+  { id: "answers", label: "Answer Diff", icon: "✎", minTraces: 2 },
+];
 
 export function ComparisonView() {
   const { structuredTraces, rawResults, prompt } = useStore();
@@ -35,6 +46,8 @@ export function ComparisonView() {
     );
   }
 
+  const availableTabs = VIEW_TABS.filter((t) => traces.length >= t.minTraces);
+
   return (
     <div className="space-y-6">
       {/* Prompt display */}
@@ -51,30 +64,38 @@ export function ComparisonView() {
         </p>
       </motion.div>
 
+      {/* Summary panel — always visible when 2+ traces */}
+      {traces.length >= 2 && <ComparisonSummary traces={traces} />}
+
       {/* View toggle */}
-      {traces.length >= 2 && (
-        <div className="flex justify-center">
-          <div className="glass rounded-xl p-1 flex gap-1">
-            {(["panels", "aligned"] as const).map((mode) => (
-              <button
-                key={mode}
-                onClick={() => setViewMode(mode)}
-                className={`px-4 py-2 rounded-lg text-xs font-medium transition-all ${
-                  viewMode === mode
-                    ? "bg-[oklch(0.25_0.08_260_/_60%)] text-foreground glow-primary"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {mode === "panels" ? "⊞ Side by Side" : "≡ Aligned"}
-              </button>
-            ))}
-          </div>
+      <div className="flex justify-center">
+        <div className="glass rounded-xl p-1 flex gap-1">
+          {availableTabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setViewMode(tab.id)}
+              className={`px-4 py-2 rounded-lg text-xs font-medium transition-all ${
+                viewMode === tab.id
+                  ? "bg-[oklch(0.25_0.08_260_/_60%)] text-foreground glow-primary"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <span className="font-mono mr-1">{tab.icon}</span>
+              {tab.label}
+            </button>
+          ))}
         </div>
-      )}
+      </div>
 
       {/* Main content */}
       {viewMode === "aligned" && traces.length >= 2 ? (
         <AlignedComparison traces={traces} />
+      ) : viewMode === "synced" && traces.length >= 2 ? (
+        <SyncedReplay traces={traces} />
+      ) : viewMode === "metrics" && traces.length >= 2 ? (
+        <CrossMetrics traces={traces} />
+      ) : viewMode === "answers" && traces.length >= 2 ? (
+        <AnswerDiff traces={traces} />
       ) : (
         <div
           className="grid gap-5"
