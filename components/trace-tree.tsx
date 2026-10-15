@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useMemo } from "react";
+import { motion } from "framer-motion";
 import {
   ReactFlow,
   Background,
@@ -152,7 +152,7 @@ function PhaseNode({
         </div>
 
         {/* Metrics bar */}
-        <div className="flex items-center gap-3 text-[10px] font-mono" style={{ color: `${theme.text}80` }}>
+        <div className="flex items-center gap-3 text-xs font-mono" style={{ color: `${theme.text}80` }}>
           <span>{data.tokenCount} tok</span>
           <span className="opacity-30">|</span>
           <span>{data.stepCount} steps</span>
@@ -205,7 +205,7 @@ function StepNode({
           >
             {step.icon}
           </span>
-          <span className="text-[11px] leading-relaxed text-gray-300 line-clamp-3">
+          <span className="text-xs leading-relaxed text-gray-300 line-clamp-3">
             {data.content}
           </span>
         </div>

@@ -5,10 +5,10 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 import { MODEL_OPTIONS } from "@/lib/providers/types";
 import { useStore } from "@/lib/store";
+import { buildStructuredTrace, RawPhase } from "@/lib/parser/structure";
+import { TraceResult } from "@/lib/parser/types";
 
 const EXAMPLE_PROMPTS = [
   {
@@ -130,8 +130,13 @@ export function PromptInput() {
             onClick={async () => {
               const res = await fetch("/examples/math-reasoning.json");
               const data = await res.json();
+              const results: (TraceResult & { phases: RawPhase[] })[] = data.results;
               setPrompt(data.prompt);
-              setRawResults(data.results);
+              setRawResults(results);
+              // Demo traces ship pre-parsed, so every view works without API keys
+              useStore.getState().setStructuredTraces(
+                results.map((r) => buildStructuredTrace(r, data.prompt, r.phases))
+              );
               router.push("/compare");
             }}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-gradient-to-r from-[oklch(0.25_0.08_260_/_60%)] to-[oklch(0.25_0.06_195_/_60%)] border border-[oklch(0.4_0.1_260_/_30%)] text-[oklch(0.8_0.12_195)] hover:glow-cyan transition-all duration-300"
@@ -177,7 +182,7 @@ export function PromptInput() {
                   >
                     {model.name}
                   </p>
-                  <p className="text-[10px] text-muted-foreground/60 truncate">
+                  <p className="text-xs text-muted-foreground/60 truncate">
                     {model.description}
                   </p>
                 </div>

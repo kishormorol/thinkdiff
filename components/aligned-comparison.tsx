@@ -52,7 +52,7 @@ export function AlignedComparison({ traces }: AlignedComparisonProps) {
             <span className="text-sm font-mono font-semibold text-foreground/80">
               {t.model}
             </span>
-            <p className="text-[10px] text-muted-foreground/50 font-mono">
+            <p className="text-xs text-muted-foreground/50 font-mono">
               {t.totalTokens.toLocaleString()} tok · {(t.totalTimeMs / 1000).toFixed(1)}s
             </p>
           </div>
@@ -80,7 +80,7 @@ export function AlignedComparison({ traces }: AlignedComparisonProps) {
                 {/* Phase label */}
                 <div className="flex items-start pt-3">
                   <span
-                    className="text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded-md"
+                    className="text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded-md"
                     style={{
                       color,
                       background: `${color}10`,
@@ -113,18 +113,18 @@ export function AlignedComparison({ traces }: AlignedComparisonProps) {
                     }
                   >
                     {phase === null ? (
-                      <span className="text-muted-foreground/20 italic text-[10px] flex items-center justify-center h-full">
+                      <span className="text-muted-foreground/20 italic text-xs flex items-center justify-center h-full">
                         —
                       </span>
                     ) : (
                       <div className="space-y-1.5">
-                        <div className="font-mono text-[10px]" style={{ color: `${color}80` }}>
+                        <div className="font-mono text-xs" style={{ color: `${color}80` }}>
                           {phase.tokenCount} tok · {phase.steps.length} steps
                         </div>
                         {phase.steps.slice(0, 3).map((step) => (
                           <div
                             key={step.id}
-                            className="text-[11px] leading-relaxed line-clamp-2 text-foreground/50"
+                            className="text-sm leading-relaxed line-clamp-2 text-foreground/60"
                           >
                             <span className="font-mono mr-1" style={{ color: `${color}60` }}>
                               {step.type === "backtrack"
@@ -139,7 +139,7 @@ export function AlignedComparison({ traces }: AlignedComparisonProps) {
                           </div>
                         ))}
                         {phase.steps.length > 3 && (
-                          <div className="text-[10px] text-muted-foreground/30 italic">
+                          <div className="text-xs text-muted-foreground/30 italic">
                             +{phase.steps.length - 3} more
                           </div>
                         )}
@@ -165,7 +165,7 @@ function DivergenceMeter({ score }: { score: number }) {
 
   return (
     <div className="glass rounded-xl px-5 py-3 flex items-center gap-4">
-      <span className="text-[10px] uppercase tracking-widest text-muted-foreground/50">
+      <span className="text-xs uppercase tracking-widest text-muted-foreground/50">
         Divergence
       </span>
       <div className="w-32 h-2 rounded-full bg-[oklch(0.12_0.01_260)] overflow-hidden">
@@ -183,7 +183,7 @@ function DivergenceMeter({ score }: { score: number }) {
       <span className="text-xs font-semibold" style={{ color }}>
         {level}
       </span>
-      <span className="text-[10px] font-mono text-muted-foreground/40">
+      <span className="text-xs font-mono text-muted-foreground/40">
         {score}
       </span>
     </div>

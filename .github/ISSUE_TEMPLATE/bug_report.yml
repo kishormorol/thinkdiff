@@ -1,0 +1,37 @@
+name: Bug report
+description: Something isn't working as expected
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: A clear description of the bug, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Select models ...
+        2. Enter prompt ...
+        3. Open the Tree tab ...
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Input mode
+      options: [Demo, Live API, Paste mode]
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: "OS, browser, Node version, commit SHA"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / screenshots
+      description: Browser console or server output. **Remove any API keys.**
+      render: shell

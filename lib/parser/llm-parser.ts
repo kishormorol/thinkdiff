@@ -1,11 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
-import {
-  StructuredTrace,
-  TraceResult,
-  Phase,
-  PhaseType,
-  StepType,
-} from "./types";
+import { StructuredTrace, TraceResult } from "./types";
+import { buildStructuredTrace, RawPhase } from "./structure";
 
 const PARSE_PROMPT = `You are a reasoning trace analyzer. Given a raw reasoning trace from an LLM, parse it into structured phases and steps.
 
@@ -87,44 +82,6 @@ export async function parseTrace(
     };
   }
 
-  let charIndex = 0;
-  const phases: Phase[] = parsed.phases.map((p, pi) => {
-    const steps = (p.steps || []).map((s, si) => ({
-      id: `${pi}-${si}`,
-      content: s.content,
-      type: (s.type || "assertion") as StepType,
-    }));
-
-    const phaseText = steps.map((s) => s.content).join(" ");
-    const tokenEstimate = Math.ceil(phaseText.length / 4);
-    const startIndex = charIndex;
-    charIndex += phaseText.length;
-
-    return {
-      id: `phase-${pi}`,
-      label: p.label || `Phase ${pi + 1}`,
-      type: (p.type || "execute") as PhaseType,
-      steps,
-      tokenCount: tokenEstimate,
-      startIndex,
-      endIndex: charIndex,
-    };
-  });
-
-  return {
-    id: `${rawResult.model}-${Date.now()}`,
-    model: rawResult.model,
-    prompt,
-    rawTrace: rawResult.rawTrace,
-    totalTokens: rawResult.totalTokens,
-    totalTimeMs: rawResult.totalTimeMs,
-    phases,
-    answer: rawResult.answer,
-  };
+  return buildStructuredTrace(rawResult, prompt, parsed.phases);
 }
 
-interface RawPhase {
-  label: string;
-  type: string;
-  steps: { content: string; type: string }[];
-}

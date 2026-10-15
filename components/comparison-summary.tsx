@@ -2,8 +2,9 @@
 
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { StructuredTrace, PhaseType } from "@/lib/parser/types";
+import { StructuredTrace } from "@/lib/parser/types";
 import { divergenceScore } from "@/lib/parser/alignment";
+import { answerKey } from "@/lib/answer";
 
 const MODEL_COLORS: Record<string, string> = {
   "claude-sonnet": "#818cf8",
@@ -35,11 +36,11 @@ export function ComparisonSummary({ traces }: ComparisonSummaryProps) {
     )[0];
 
     // Answer agreement
-    const answers = traces.map((t) => t.answer.trim().toLowerCase());
+    const answers = traces.map((t) => answerKey(t.answer));
     const allAgree = answers.every((a) => a === answers[0]);
     const answerGroups = new Map<string, string[]>();
     traces.forEach((t) => {
-      const key = t.answer.trim().toLowerCase().slice(0, 100);
+      const key = answerKey(t.answer);
       const existing = answerGroups.get(key) ?? [];
       existing.push(t.model);
       answerGroups.set(key, existing);
@@ -118,14 +119,14 @@ export function ComparisonSummary({ traces }: ComparisonSummaryProps) {
           >
             <div className="flex items-center gap-2">
               <span className="text-lg">{card.icon}</span>
-              <span className="text-[10px] uppercase tracking-widest text-muted-foreground/60 font-medium">
+              <span className="text-xs uppercase tracking-widest text-muted-foreground/60 font-medium">
                 {card.label}
               </span>
             </div>
             <p className="text-sm font-mono font-semibold" style={{ color: card.color }}>
               {card.value}
             </p>
-            <p className="text-[10px] text-muted-foreground/50">{card.detail}</p>
+            <p className="text-xs text-muted-foreground/50">{card.detail}</p>
           </motion.div>
         ))}
       </div>

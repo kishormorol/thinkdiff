@@ -77,12 +77,12 @@ export function SyncedReplay({ traces }: SyncedReplayProps) {
   // Auto-play
   useEffect(() => {
     if (!isPlaying) return;
-    if (globalStep >= maxSteps - 1) {
-      setIsPlaying(false);
-      return;
-    }
-    const delay = Math.max(300, 1200 / speed);
-    const timer = setTimeout(() => setGlobalStep((s) => s + 1), delay);
+    const atEnd = globalStep >= maxSteps - 1;
+    const delay = atEnd ? 0 : Math.max(300, 1200 / speed);
+    const timer = setTimeout(
+      () => (atEnd ? setIsPlaying(false) : setGlobalStep((s) => s + 1)),
+      delay
+    );
     return () => clearTimeout(timer);
   }, [isPlaying, globalStep, speed, maxSteps]);
 
@@ -107,8 +107,6 @@ export function SyncedReplay({ traces }: SyncedReplayProps) {
       return count;
     });
   }, [globalStep, flatTraces, maxSteps]);
-
-  const progress = maxSteps > 0 ? ((globalStep + 1) / maxSteps) * 100 : 0;
 
   return (
     <div className="space-y-4">
@@ -188,7 +186,7 @@ export function SyncedReplay({ traces }: SyncedReplayProps) {
             <button
               key={s}
               onClick={() => setSpeed(s)}
-              className={`px-2 py-1 rounded text-[10px] font-mono transition-all ${
+              className={`px-2 py-1 rounded text-xs font-mono transition-all ${
                 speed === s
                   ? "bg-[oklch(0.3_0.08_260)] text-indigo-300"
                   : "text-muted-foreground hover:text-foreground"
@@ -253,7 +251,7 @@ export function SyncedReplay({ traces }: SyncedReplayProps) {
                 >
                   {t.model}
                 </span>
-                <span className="text-[10px] font-mono text-muted-foreground/40">
+                <span className="text-xs font-mono text-muted-foreground/40">
                   {visibleCounts[ti]} steps
                 </span>
               </div>
@@ -282,7 +280,7 @@ export function SyncedReplay({ traces }: SyncedReplayProps) {
                               style={{ background: phaseColor }}
                             />
                             <span
-                              className="text-[10px] font-semibold uppercase tracking-wider"
+                              className="text-xs font-semibold uppercase tracking-wider"
                               style={{ color: phaseColor }}
                             >
                               {step.phaseLabel}
@@ -322,7 +320,7 @@ export function SyncedReplay({ traces }: SyncedReplayProps) {
                             {icon}
                           </span>
                           <span
-                            className="text-[11px] leading-relaxed"
+                            className="text-sm leading-relaxed"
                             style={{
                               color: isCurrent
                                 ? "rgba(230,230,250,0.85)"

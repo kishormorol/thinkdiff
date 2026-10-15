@@ -15,7 +15,7 @@ export default function Home() {
           </span>
           <span className="text-foreground/40">Diff</span>
         </h1>
-        <p className="text-muted-foreground max-w-md mx-auto text-base leading-relaxed">
+        <p className="text-muted-foreground max-w-xl mx-auto text-base sm:text-lg leading-relaxed">
           See how different LLMs reason about the same problem.
           <br />
           <span className="text-foreground/60">Where they diverge. Where they backtrack. Where they decide.</span>

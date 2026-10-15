@@ -175,7 +175,7 @@ export function CrossMetrics({ traces }: CrossMetricsProps) {
               >
                 {s.style}
               </p>
-              <p className="text-[10px] text-muted-foreground/50">
+              <p className="text-xs text-muted-foreground/50">
                 {s.backtracks} backtrack{s.backtracks !== 1 ? "s" : ""}
               </p>
             </motion.div>
@@ -218,7 +218,7 @@ export function CrossMetrics({ traces }: CrossMetricsProps) {
                     return (
                       <div key={t.model} className="flex items-center gap-2">
                         <span
-                          className="text-[10px] font-mono w-24 truncate"
+                          className="text-xs font-mono w-24 truncate"
                           style={{ color: mColor }}
                         >
                           {t.model}
@@ -238,7 +238,7 @@ export function CrossMetrics({ traces }: CrossMetricsProps) {
                             }}
                           />
                         </div>
-                        <span className="text-[10px] font-mono text-muted-foreground/50 w-10 text-right">
+                        <span className="text-xs font-mono text-muted-foreground/50 w-10 text-right">
                           {pct.toFixed(0)}%
                         </span>
                       </div>
@@ -255,7 +255,7 @@ export function CrossMetrics({ traces }: CrossMetricsProps) {
           {traces.map((t) => {
             const color = modelColor(t.model);
             return (
-              <div key={t.model} className="flex items-center gap-1.5 text-[10px]">
+              <div key={t.model} className="flex items-center gap-1.5 text-xs">
                 <div
                   className="w-2 h-2 rounded-full"
                   style={{ background: color }}
@@ -285,7 +285,7 @@ export function CrossMetrics({ traces }: CrossMetricsProps) {
             return (
               <div key={t.model} className="space-y-1">
                 <span
-                  className="text-[10px] font-mono"
+                  className="text-xs font-mono"
                   style={{ color }}
                 >
                   {t.model}
@@ -313,7 +313,7 @@ export function CrossMetrics({ traces }: CrossMetricsProps) {
                         }}
                       >
                         <div
-                          className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded-md text-[10px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10"
+                          className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded-md text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10"
                           style={{
                             background: `${phaseColor}20`,
                             border: `1px solid ${phaseColor}40`,
@@ -334,7 +334,7 @@ export function CrossMetrics({ traces }: CrossMetricsProps) {
         {/* Phase legend */}
         <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mt-4 pt-3 border-t border-[oklch(0.2_0.02_260_/_30%)]">
           {data.allPhaseTypes.map((type) => (
-            <span key={type} className="flex items-center gap-1 text-[10px]">
+            <span key={type} className="flex items-center gap-1 text-xs">
               <span
                 className="w-2 h-2 rounded-sm"
                 style={{ background: PHASE_COLORS[type] }}
@@ -384,7 +384,7 @@ function CompareBar({
           return (
             <div key={t.model} className="flex items-center gap-2">
               <span
-                className="text-[10px] font-mono w-24 truncate"
+                className="text-xs font-mono w-24 truncate"
                 style={{ color: modelColor(t.model) }}
               >
                 {t.model}
@@ -402,7 +402,7 @@ function CompareBar({
                 />
               </div>
               <span
-                className="text-[10px] font-mono min-w-[50px] text-right"
+                className="text-xs font-mono min-w-[50px] text-right"
                 style={{ color: isMax ? color : "oklch(0.5 0 0)" }}
               >
                 {formatValue(value)}

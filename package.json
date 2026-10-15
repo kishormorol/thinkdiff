@@ -1,12 +1,37 @@
 {
   "name": "thinkdiff",
   "version": "0.1.0",
+  "description": "Compare how LLMs reason — visualize reasoning traces from multiple models side-by-side.",
+  "license": "MIT",
+  "author": "Md Kishor Morol",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kishormorol/thinkdiff.git"
+  },
+  "homepage": "https://github.com/kishormorol/thinkdiff#readme",
+  "bugs": {
+    "url": "https://github.com/kishormorol/thinkdiff/issues"
+  },
+  "keywords": [
+    "llm",
+    "reasoning",
+    "chain-of-thought",
+    "visualization",
+    "claude",
+    "deepseek",
+    "openai",
+    "nextjs"
+  ],
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "next typegen && tsc --noEmit"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.131.0",
