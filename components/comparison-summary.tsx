@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { StructuredTrace, PhaseType } from "@/lib/parser/types";
+import { StructuredTrace } from "@/lib/parser/types";
 import { divergenceScore } from "@/lib/parser/alignment";
 
 const MODEL_COLORS: Record<string, string> = {

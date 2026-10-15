@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { StructuredTrace, PhaseType } from "@/lib/parser/types";
 
@@ -342,7 +342,10 @@ function RadialChart({
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
 
-  let offset = 0;
+  // Cumulative start position of each segment along the circle
+  const offsets = data.map((_, i) =>
+    data.slice(0, i).reduce((sum, d) => sum + circumference * d.value, 0)
+  );
 
   return (
     <svg width={size} height={size} className="transform -rotate-90">
@@ -358,8 +361,7 @@ function RadialChart({
 
       {data.map((segment, i) => {
         const segmentLength = circumference * segment.value;
-        const dashOffset = circumference - offset;
-        offset += segmentLength;
+        const dashOffset = circumference - offsets[i];
         const color = PHASE_COLORS[segment.type];
 
         return (

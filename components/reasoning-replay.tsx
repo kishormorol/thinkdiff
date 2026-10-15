@@ -47,13 +47,12 @@ export function ReasoningReplay({ trace }: ReasoningReplayProps) {
   // Auto-play
   useEffect(() => {
     if (!isPlaying) return;
-    if (currentStep >= allSteps.length - 1) {
-      setIsPlaying(false);
-      return;
-    }
-
-    const delay = Math.max(300, 1200 / speed);
-    const timer = setTimeout(() => setCurrentStep((s) => s + 1), delay);
+    const atEnd = currentStep >= allSteps.length - 1;
+    const delay = atEnd ? 0 : Math.max(300, 1200 / speed);
+    const timer = setTimeout(
+      () => (atEnd ? setIsPlaying(false) : setCurrentStep((s) => s + 1)),
+      delay
+    );
     return () => clearTimeout(timer);
   }, [isPlaying, currentStep, speed, allSteps.length]);
 
@@ -113,9 +112,6 @@ export function ReasoningReplay({ trace }: ReasoningReplayProps) {
             const phaseStepStart = allSteps.findIndex(
               (s) => s.phaseIndex === pi
             );
-            const phaseStepEnd =
-              phaseStepStart +
-              phase.steps.length;
             const left = (phaseStepStart / allSteps.length) * 100;
             const width = (phase.steps.length / allSteps.length) * 100;
             return (

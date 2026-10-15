@@ -1,5 +1,10 @@
 # ThinkDiff
 
+[![CI](https://github.com/kishormorol/thinkdiff/actions/workflows/ci.yml/badge.svg)](https://github.com/kishormorol/thinkdiff/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Next.js 16](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
 **Compare how LLMs reason.** Submit a single prompt to multiple reasoning models and visualize their thinking processes side-by-side — revealing where they diverge, backtrack, and arrive at answers through fundamentally different cognitive paths.
 
 > Different LLMs don't just give different answers — they *think* differently. ThinkDiff captures the full reasoning trace from each model and turns it into interactive, explorable visualizations.
@@ -101,7 +106,11 @@ Open [http://localhost:3000](http://localhost:3000) and click **"Load Demo"** to
 
 ### Compare Your Own Prompts
 
-Add your API keys as environment variables:
+Copy the example env file and add your API keys:
+
+```bash
+cp .env.example .env.local
+```
 
 ```bash
 # .env.local
@@ -110,7 +119,9 @@ DEEPSEEK_API_KEY=sk-...
 OPENAI_API_KEY=sk-...
 ```
 
-You only need keys for the models you want to use — select any combination of 1–3 models.
+You only need keys for the models you want to use — select any combination of 1–3 models. Note that `ANTHROPIC_API_KEY` is also used to parse traces (Claude Haiku), so it's required for live comparisons and Paste Mode.
+
+> ⚠️ **Deploying publicly?** The API routes have no auth or rate limiting, so anyone with the URL can spend your API credits. See [SECURITY.md](SECURITY.md).
 
 ### Manual Paste Mode
 
@@ -149,11 +160,15 @@ thinkdiff/
 ├── components/
 │   ├── prompt-input.tsx        # Input form + model selection
 │   ├── comparison-view.tsx     # Main comparison container
+│   ├── comparison-summary.tsx  # At-a-glance comparison summary
 │   ├── trace-panel.tsx         # Individual trace card (5 tabs)
 │   ├── aligned-comparison.tsx  # Cross-model phase alignment
+│   ├── answer-diff.tsx         # Final answer diff across models
 │   ├── phase-timeline.tsx      # Token distribution bar
 │   ├── trace-tree.tsx          # Interactive graph visualization
 │   ├── reasoning-replay.tsx    # Animated step playback
+│   ├── synced-replay.tsx       # Synchronized multi-model replay
+│   ├── cross-metrics.tsx       # Cross-model metric comparison
 │   └── metrics-dashboard.tsx   # Stats + charts
 ├── lib/
 │   ├── store.ts                # Zustand state
@@ -207,10 +222,38 @@ Parse raw traces into structured phases/steps using Claude.
 
 ---
 
-## License
+## Development
 
-MIT
+```bash
+npm run dev        # start the dev server
+npm run lint       # ESLint
+npm run typecheck  # TypeScript
+npm run build      # production build
+```
 
 ---
 
-Built for CHI 2027 poster track.
+## Contributing
+
+Contributions are welcome — new model providers, visualizations, metrics, and bug fixes. See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, checks, and a step-by-step guide to adding a provider. Please follow the [Code of Conduct](CODE_OF_CONDUCT.md), and report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
+
+### Roadmap ideas
+
+- More reasoning models (Gemini, Qwen, local models via Ollama)
+- Export comparisons as shareable links or images
+- Batch comparisons across a prompt set
+- Automated tests for the parser and alignment algorithm
+
+---
+
+## Citation
+
+If you use ThinkDiff in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff) (GitHub's **"Cite this repository"** button generates BibTeX and APA).
+
+---
+
+## License
+
+[MIT](LICENSE) © Md Kishor Morol
+
+Built for the CHI 2027 poster track.

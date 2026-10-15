@@ -77,12 +77,12 @@ export function SyncedReplay({ traces }: SyncedReplayProps) {
   // Auto-play
   useEffect(() => {
     if (!isPlaying) return;
-    if (globalStep >= maxSteps - 1) {
-      setIsPlaying(false);
-      return;
-    }
-    const delay = Math.max(300, 1200 / speed);
-    const timer = setTimeout(() => setGlobalStep((s) => s + 1), delay);
+    const atEnd = globalStep >= maxSteps - 1;
+    const delay = atEnd ? 0 : Math.max(300, 1200 / speed);
+    const timer = setTimeout(
+      () => (atEnd ? setIsPlaying(false) : setGlobalStep((s) => s + 1)),
+      delay
+    );
     return () => clearTimeout(timer);
   }, [isPlaying, globalStep, speed, maxSteps]);
 
@@ -107,8 +107,6 @@ export function SyncedReplay({ traces }: SyncedReplayProps) {
       return count;
     });
   }, [globalStep, flatTraces, maxSteps]);
-
-  const progress = maxSteps > 0 ? ((globalStep + 1) / maxSteps) * 100 : 0;
 
   return (
     <div className="space-y-4">
