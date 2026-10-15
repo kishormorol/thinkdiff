@@ -270,7 +270,7 @@ export function AnswerDiff({ traces }: AnswerDiffProps) {
                 </div>
 
                 {/* Legend */}
-                <div className="flex items-center gap-4 text-[10px] pt-2 border-t border-[oklch(0.2_0.02_260_/_30%)]">
+                <div className="flex items-center gap-4 text-xs pt-2 border-t border-[oklch(0.2_0.02_260_/_30%)]">
                   <span className="flex items-center gap-1">
                     <span
                       className="w-3 h-2 rounded-sm"

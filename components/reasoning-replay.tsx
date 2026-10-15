@@ -158,7 +158,7 @@ export function ReasoningReplay({ trace }: ReasoningReplayProps) {
             <button
               key={s}
               onClick={() => setSpeed(s)}
-              className={`px-2 py-1 rounded text-[10px] font-mono transition-all ${
+              className={`px-2 py-1 rounded text-xs font-mono transition-all ${
                 speed === s
                   ? "bg-[oklch(0.3_0.08_260)] text-indigo-300"
                   : "text-muted-foreground hover:text-foreground"

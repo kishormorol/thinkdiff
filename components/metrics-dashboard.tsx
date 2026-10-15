@@ -123,7 +123,7 @@ export function MetricsDashboard({ trace }: MetricsDashboardProps) {
           </div>
           <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mt-4">
             {Object.entries(phaseDistribution).map(([type, tokens]) => (
-              <span key={type} className="flex items-center gap-1.5 text-[10px]">
+              <span key={type} className="flex items-center gap-1.5 text-xs">
                 <span
                   className="w-2 h-2 rounded-sm"
                   style={{ background: PHASE_COLORS[type as PhaseType] }}
@@ -224,7 +224,7 @@ export function MetricsDashboard({ trace }: MetricsDashboardProps) {
                 }}
               >
                 {/* Tooltip */}
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded-md text-[10px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded-md text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
                   style={{ background: `${color}20`, border: `1px solid ${color}40`, color }}
                 >
                   {phase.label} · {phase.tokenCount} tok
@@ -280,7 +280,7 @@ function MetricCard({
         boxShadow: `0 0 20px ${color}08, inset 0 0 20px ${color}03`,
       }}
     >
-      <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">
+      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
         {label}
       </p>
       <p className="text-2xl font-bold font-mono" style={{ color }}>
@@ -402,7 +402,7 @@ function RadialChart({
         y={size / 2 + 14}
         textAnchor="middle"
         dominantBaseline="middle"
-        className="fill-muted-foreground text-[10px] uppercase tracking-wider"
+        className="fill-muted-foreground text-xs uppercase tracking-wider"
         transform={`rotate(90, ${size / 2}, ${size / 2})`}
       >
         phases

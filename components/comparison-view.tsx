@@ -56,7 +56,7 @@ export function ComparisonView() {
         animate={{ opacity: 1 }}
         className="text-center"
       >
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground/50 mb-2">
+        <p className="text-xs uppercase tracking-widest text-muted-foreground/50 mb-2">
           Prompt
         </p>
         <p className="text-sm text-foreground/70 max-w-2xl mx-auto font-mono glass rounded-xl px-5 py-3 inline-block">
@@ -122,7 +122,7 @@ function RawComparisonView() {
         animate={{ opacity: 1 }}
         className="text-center"
       >
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground/50 mb-2">
+        <p className="text-xs uppercase tracking-widest text-muted-foreground/50 mb-2">
           Prompt
         </p>
         <p className="text-sm text-foreground/70 max-w-2xl mx-auto font-mono glass rounded-xl px-5 py-3 inline-block">
@@ -158,13 +158,13 @@ function RawComparisonView() {
                 <div className="flex gap-2">
                   <Badge
                     variant="outline"
-                    className="text-[10px] font-mono border-[oklch(0.3_0.05_260_/_40%)] text-muted-foreground"
+                    className="text-xs font-mono border-[oklch(0.3_0.05_260_/_40%)] text-muted-foreground"
                   >
                     {result.totalTokens.toLocaleString()} tok
                   </Badge>
                   <Badge
                     variant="outline"
-                    className="text-[10px] font-mono border-[oklch(0.3_0.05_195_/_40%)] text-[oklch(0.7_0.1_195)]"
+                    className="text-xs font-mono border-[oklch(0.3_0.05_195_/_40%)] text-[oklch(0.7_0.1_195)]"
                   >
                     {(result.totalTimeMs / 1000).toFixed(1)}s
                   </Badge>
@@ -179,7 +179,7 @@ function RawComparisonView() {
               ) : (
                 <div className="space-y-4">
                   <div>
-                    <p className="text-[10px] uppercase tracking-widest text-muted-foreground/50 mb-2">
+                    <p className="text-xs uppercase tracking-widest text-muted-foreground/50 mb-2">
                       Reasoning Trace
                     </p>
                     <ScrollArea className="h-[400px]">
@@ -190,7 +190,7 @@ function RawComparisonView() {
                   </div>
                   {result.answer && (
                     <div className="border-t border-[oklch(0.2_0.02_260_/_30%)] pt-3">
-                      <p className="text-[10px] uppercase tracking-widest text-emerald-400/60 mb-1">
+                      <p className="text-xs uppercase tracking-widest text-emerald-400/60 mb-1">
                         Answer
                       </p>
                       <p className="text-sm text-foreground/70">

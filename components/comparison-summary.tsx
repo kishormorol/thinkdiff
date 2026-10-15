@@ -119,14 +119,14 @@ export function ComparisonSummary({ traces }: ComparisonSummaryProps) {
           >
             <div className="flex items-center gap-2">
               <span className="text-lg">{card.icon}</span>
-              <span className="text-[10px] uppercase tracking-widest text-muted-foreground/60 font-medium">
+              <span className="text-xs uppercase tracking-widest text-muted-foreground/60 font-medium">
                 {card.label}
               </span>
             </div>
             <p className="text-sm font-mono font-semibold" style={{ color: card.color }}>
               {card.value}
             </p>
-            <p className="text-[10px] text-muted-foreground/50">{card.detail}</p>
+            <p className="text-xs text-muted-foreground/50">{card.detail}</p>
           </motion.div>
         ))}
       </div>

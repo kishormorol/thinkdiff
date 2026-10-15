@@ -70,13 +70,13 @@ export function TracePanel({ trace, index = 0 }: TracePanelProps) {
           <div className="flex gap-2">
             <Badge
               variant="outline"
-              className="text-[10px] font-mono border-[oklch(0.3_0.05_260_/_40%)] text-muted-foreground"
+              className="text-xs font-mono border-[oklch(0.3_0.05_260_/_40%)] text-muted-foreground"
             >
               {trace.totalTokens.toLocaleString()} tok
             </Badge>
             <Badge
               variant="outline"
-              className="text-[10px] font-mono border-[oklch(0.3_0.05_195_/_40%)] text-[oklch(0.7_0.1_195)]"
+              className="text-xs font-mono border-[oklch(0.3_0.05_195_/_40%)] text-[oklch(0.7_0.1_195)]"
             >
               {(trace.totalTimeMs / 1000).toFixed(1)}s
             </Badge>
@@ -99,7 +99,7 @@ export function TracePanel({ trace, index = 0 }: TracePanelProps) {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex-1 px-3 py-2.5 text-[11px] font-medium transition-all relative ${
+            className={`flex-1 px-3 py-2.5 text-xs font-medium transition-all relative ${
               activeTab === tab.id
                 ? "text-foreground"
                 : "text-muted-foreground/60 hover:text-muted-foreground"
@@ -151,7 +151,7 @@ export function TracePanel({ trace, index = 0 }: TracePanelProps) {
       {trace.answer && (
         <div className="px-5 py-3 border-t border-[oklch(0.2_0.02_260_/_30%)] bg-[oklch(0.1_0.02_155_/_20%)]">
           <div className="flex items-center gap-1.5 mb-1">
-            <span className="text-emerald-400 text-[10px] font-semibold tracking-wider uppercase">
+            <span className="text-emerald-400 text-xs font-semibold tracking-wider uppercase">
               ✓ Answer
             </span>
           </div>
@@ -183,7 +183,7 @@ function PhaseBlock({ phase }: { phase: Phase }) {
         <span className="text-xs font-semibold capitalize" style={{ color }}>
           {phase.label}
         </span>
-        <span className="text-[10px] font-mono text-muted-foreground/50">
+        <span className="text-xs font-mono text-muted-foreground/50">
           {phase.tokenCount} tok
         </span>
       </div>
@@ -209,7 +209,7 @@ function PhaseBlock({ phase }: { phase: Phase }) {
               >
                 {icon.icon}
               </span>
-              <span className="text-foreground/70 text-xs leading-relaxed">
+              <span className="text-foreground/70 text-sm leading-relaxed">
                 {step.content}
               </span>
             </div>

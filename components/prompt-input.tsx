@@ -182,7 +182,7 @@ export function PromptInput() {
                   >
                     {model.name}
                   </p>
-                  <p className="text-[10px] text-muted-foreground/60 truncate">
+                  <p className="text-xs text-muted-foreground/60 truncate">
                     {model.description}
                   </p>
                 </div>
