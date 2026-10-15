@@ -9,6 +9,11 @@
 
 > Different LLMs don't just give different answers — they *think* differently. ThinkDiff captures the full reasoning trace from each model and turns it into interactive, explorable visualizations.
 
+<p align="center">
+  <img src="docs/images/home.png" alt="ThinkDiff home screen: prompt input, example prompts and model selection" width="49%" />
+  <img src="docs/images/compare.png" alt="ThinkDiff comparison view: Claude Sonnet and DeepSeek R1 reasoning traces side by side" width="49%" />
+</p>
+
 ---
 
 ## What It Does
@@ -102,7 +107,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) and click **"Load Demo"** to explore a pre-loaded math reasoning comparison — no API keys needed.
+Open [http://localhost:3000](http://localhost:3000) and click **"Demo — no keys"** to load a pre-recorded math reasoning comparison between Claude Sonnet 4 and DeepSeek R1. The raw traces and answers display without any API keys; clicking **"Parse & Structure Traces"** to unlock the Tree, Replay, Aligned and Metrics views requires `ANTHROPIC_API_KEY`.
 
 ### Compare Your Own Prompts
 
