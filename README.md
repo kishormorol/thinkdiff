@@ -18,7 +18,7 @@
 
 ## What It Does
 
-ThinkDiff sends the same prompt to up to **3 reasoning models** simultaneously, captures their extended thinking / chain-of-thought, and provides **5 visualization modes** to analyze how they reason:
+ThinkDiff sends the same prompt to up to **3 reasoning models** simultaneously, captures their extended thinking / chain-of-thought, and gives you several views to analyze how they reason:
 
 ### Supported Models
 
@@ -30,15 +30,25 @@ ThinkDiff sends the same prompt to up to **3 reasoning models** simultaneously, 
 
 ### Visualization Modes
 
-**1. Side-by-Side Panels** — Each model's trace in its own card with 5 sub-tabs (Steps, Tree, Replay, Raw, Metrics)
+Every comparison opens with **summary cards** — fastest model, most token-efficient, most linear (fewest backtracks), and whether the models' final answers agree — plus a pairwise **divergence score**. Below them, five comparison views:
 
-**2. Aligned Comparison** — Phases auto-aligned across models so you can see exactly where reasoning diverges, with a quantitative divergence score
+| View | What it shows |
+|---|---|
+| **Side by Side** | Each model in its own panel, with five tabs (below) |
+| **Aligned** | Phases matched across models row by row, so you can see exactly where reasoning diverges |
+| **Synced Replay** | All models replay their steps together on one timeline (0.5x–4x), normalized so short and long traces finish together |
+| **Compare Stats** | Head-to-head bars for tokens, time, steps, phases and backtracks, plus each model's reasoning style |
+| **Answer Diff** | Word-level diff of the final answers |
 
-**3. Trace Tree** — Interactive graph (pan/zoom) showing the hierarchy: root → phases → individual steps → answer. Color-coded by phase type with animated entry.
+Each model's panel has five tabs:
 
-**4. Reasoning Replay** — Animated step-by-step playback of each model's thinking process, with speed control (0.5x–4x) and a phase-segmented progress bar
-
-**5. Metrics Dashboard** — Token counts, execution time, phase distribution charts, backtrack frequency, and reasoning style classification (Linear / Exploratory / Iterative)
+| Tab | What it shows |
+|---|---|
+| **Steps** | Phases and their individual reasoning steps, color-coded by type |
+| **Tree** | Interactive graph (pan/zoom): root → phases → steps → answer |
+| **Replay** | Animated step-by-step playback with a phase-segmented progress bar |
+| **Raw** | The unprocessed reasoning trace |
+| **Metrics** | Token counts, timing, phase distribution, backtracks, and reasoning style (Linear / Exploratory / Iterative) |
 
 ---
 
@@ -74,7 +84,7 @@ Raw traces are sent to Claude Haiku, which semantically parses them into a struc
 | Backtrack | ↩ | Abandoning a line of reasoning |
 
 ### 4. Visualize & Compare
-All 5 visualization modes render from the structured data, letting you explore reasoning patterns from multiple angles.
+Every view renders from the same structured data, so you can explore reasoning patterns from multiple angles.
 
 ---
 
@@ -130,11 +140,13 @@ You only need keys for the models you want to use — select any combination of 
 
 ### Manual Paste Mode
 
-Don't have API keys? You can still use ThinkDiff:
-1. Get reasoning traces from any source (ChatGPT, Claude, etc.)
-2. Toggle **"Paste Mode"** on the input form
+Compare traces from models ThinkDiff doesn't call directly (e.g. from ChatGPT or Gemini):
+1. Get reasoning traces from any source
+2. Click **"Paste"** next to the Compare button
 3. Paste each model's reasoning trace and answer
-4. Click **"Parse & Structure"** to analyze
+4. Click **"Parse & Structure Traces"** to analyze
+
+Parsing uses Claude Haiku, so Paste Mode needs `ANTHROPIC_API_KEY` (but no keys for the pasted models).
 
 ---
 
@@ -177,16 +189,20 @@ thinkdiff/
 │   └── metrics-dashboard.tsx   # Stats + charts
 ├── lib/
 │   ├── store.ts                # Zustand state
+│   ├── answer.ts               # Final-answer normalization for agreement checks
 │   ├── parser/
 │   │   ├── types.ts            # Phase, Step, StructuredTrace types
 │   │   ├── llm-parser.ts       # Claude-powered trace parser
+│   │   ├── structure.ts        # Builds StructuredTrace from parsed phases
 │   │   └── alignment.ts        # Phase alignment algorithm
 │   └── providers/
 │       ├── index.ts            # Provider factory
 │       ├── claude.ts           # Claude Sonnet 4
 │       ├── deepseek.ts         # DeepSeek R1
 │       └── openai.ts           # o3-mini
-└── public/examples/            # Demo data
+├── public/examples/            # Demo data (pre-parsed, works without keys)
+├── docs/images/                # README screenshots
+└── .github/                    # CI workflow, issue/PR templates, Dependabot
 ```
 
 ---
@@ -204,7 +220,7 @@ thinkdiff/
 ## API Routes
 
 ### POST `/api/execute`
-Execute prompt across selected models.
+Execute prompt across selected models. Returns `400` for invalid JSON, an empty prompt, a prompt over 20,000 characters, or an unknown model ID. A model with no API key configured comes back with an `error` field instead of failing the whole request.
 
 ```json
 // Request
@@ -215,7 +231,7 @@ Execute prompt across selected models.
 ```
 
 ### POST `/api/parse`
-Parse raw traces into structured phases/steps using Claude.
+Parse raw traces into structured phases/steps using Claude Haiku. Requires `ANTHROPIC_API_KEY`; returns `502` if parsing fails.
 
 ```json
 // Request
