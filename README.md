@@ -4,10 +4,13 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Live demo](https://img.shields.io/badge/demo-thinkdiff.vercel.app-000?logo=vercel)](https://thinkdiff.vercel.app)
 
 **Compare how LLMs reason.** Submit a single prompt to multiple reasoning models and visualize their thinking processes side-by-side — revealing where they diverge, backtrack, and arrive at answers through fundamentally different cognitive paths.
 
 > Different LLMs don't just give different answers — they *think* differently. ThinkDiff captures the full reasoning trace from each model and turns it into interactive, explorable visualizations.
+
+**[▶ Try the live demo](https://thinkdiff.vercel.app)** — click **"Demo — no keys"** to explore every view without an API key.
 
 <p align="center">
   <img src="docs/images/home.png" alt="ThinkDiff home screen: prompt input, example prompts and model selection" width="49%" />
