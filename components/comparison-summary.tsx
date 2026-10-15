@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { StructuredTrace } from "@/lib/parser/types";
 import { divergenceScore } from "@/lib/parser/alignment";
+import { answerKey } from "@/lib/answer";
 
 const MODEL_COLORS: Record<string, string> = {
   "claude-sonnet": "#818cf8",
@@ -35,11 +36,11 @@ export function ComparisonSummary({ traces }: ComparisonSummaryProps) {
     )[0];
 
     // Answer agreement
-    const answers = traces.map((t) => t.answer.trim().toLowerCase());
+    const answers = traces.map((t) => answerKey(t.answer));
     const allAgree = answers.every((a) => a === answers[0]);
     const answerGroups = new Map<string, string[]>();
     traces.forEach((t) => {
-      const key = t.answer.trim().toLowerCase().slice(0, 100);
+      const key = answerKey(t.answer);
       const existing = answerGroups.get(key) ?? [];
       existing.push(t.model);
       answerGroups.set(key, existing);

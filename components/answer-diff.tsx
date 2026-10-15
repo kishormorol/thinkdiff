@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { StructuredTrace } from "@/lib/parser/types";
+import { answerKey } from "@/lib/answer";
 
 const MODEL_COLORS: Record<string, string> = {
   "claude-sonnet": "#818cf8",
@@ -97,7 +98,7 @@ export function AnswerDiff({ traces }: AnswerDiffProps) {
   }));
 
   // Check agreement
-  const normalized = answers.map((a) => a.answer.trim().toLowerCase());
+  const normalized = answers.map((a) => answerKey(a.answer));
   const allAgree = normalized.every((a) => a === normalized[0]);
 
   // Compute diffs between pairs

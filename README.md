@@ -11,7 +11,7 @@
 
 <p align="center">
   <img src="docs/images/home.png" alt="ThinkDiff home screen: prompt input, example prompts and model selection" width="49%" />
-  <img src="docs/images/compare.png" alt="ThinkDiff comparison view: Claude Sonnet and DeepSeek R1 reasoning traces side by side" width="49%" />
+  <img src="docs/images/compare.png" alt="ThinkDiff comparison view: summary cards and structured reasoning phases for Claude Sonnet and DeepSeek R1" width="49%" />
 </p>
 
 ---
@@ -107,7 +107,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) and click **"Demo — no keys"** to load a pre-recorded math reasoning comparison between Claude Sonnet 4 and DeepSeek R1. The raw traces and answers display without any API keys; clicking **"Parse & Structure Traces"** to unlock the Tree, Replay, Aligned and Metrics views requires `ANTHROPIC_API_KEY`.
+Open [http://localhost:3000](http://localhost:3000) and click **"Demo — no keys"** to load a pre-recorded math reasoning comparison between Claude Sonnet 4 and DeepSeek R1. The demo traces ship pre-parsed, so every view — Steps, Tree, Replay, Aligned, Synced Replay, Metrics and Answer Diff — works with no API keys.
 
 ### Compare Your Own Prompts
 
